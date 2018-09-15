@@ -1,21 +1,14 @@
-#include<iostream>
-using namespace std;
+#include<iostream>	//library to manipulate input outpu streams in C++
+#include<bitset>	//library to convert a number or string to it's equivalent bitset
 int main() 
 {
-    int num,nnum=0,nnnum=0,x,temp;
-    cin>>num;
-    do
-    {
-        x=num%8;
-        num/=8;
-        nnum=nnum*10+x;
-    }while(num!=0);
-    do
-    {
-        temp=nnum%10;
-        nnum/=10;
-        nnnum=nnnum*10+temp;
-    }while(nnum!=0);
-    cout<<nnnum;
-	return 0;
+	int num;
+	std::cin>>num; //input the an integer and store to num
+	std::bitset<32> bts(num); //convert num to bits by creating an instance of bitset<32>
+	std::string bitstr=bts.to_string(); //convert the bitset to string to trim out the trailling zeros
+	auto sig=bitstr.find('1'); //finding first significant bit in the bitset
+	if(sig!=std::string::npos) //checking if not found
+		std::cout<<bts.to_string().substr(sig)<<std::endl;
+	else
+		std::cout<<0<<std::endl;
 }
